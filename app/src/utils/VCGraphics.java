@@ -1,6 +1,6 @@
 package utils;
 
-public class Graphics {
+public class VCGraphics {
 
     public static final double IDEAL_FPS = 60.0f;
     public static final double NS_PER_FSP = 1_000_000_000.0 / IDEAL_FPS; // 16ms

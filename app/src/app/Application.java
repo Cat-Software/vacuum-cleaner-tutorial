@@ -1,12 +1,17 @@
 package app;
 
 import graphics.RenderApplication;
+import utils.GlobalConfig;
 import utils.Log;
 import window.Window;
 
 import java.awt.*;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Application extends RenderApplication {
+
+    private BufferedImage bufferedImage = new BufferedImage(GlobalConfig.WIDTH, GlobalConfig.HEIGHT, BufferedImage.TYPE_INT_RGB);
 
     @Override
     public void initializeResources() {
@@ -20,7 +25,28 @@ public class Application extends RenderApplication {
 
     @Override
     public void render() {
-        setBackground(Color.BLACK);
+        BufferStrategy bufferStrategy = getBufferStrategy();
+
+        if(bufferStrategy == null) {
+            createBufferStrategy(GlobalConfig.DOUBLE_BUFFER);
+            return;
+        }
+
+        Graphics graphics = bufferedImage.getGraphics();
+        graphics.setColor(Color.BLACK);
+        graphics.fillRect(0, 0, GlobalConfig.WIDTH, GlobalConfig.HEIGHT);
+
+        graphics.setColor(Color.BLUE);
+        graphics.fillRect(150, 150, 200, 200);
+
+        graphics = bufferStrategy.getDrawGraphics();
+        graphics.drawImage(bufferedImage, 0, 0, null);
+
+        graphics.dispose();
+
+        do {
+            bufferStrategy.show();
+        } while(bufferStrategy.contentsLost());
     }
 
     @Override

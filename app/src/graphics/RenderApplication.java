@@ -1,7 +1,7 @@
 package graphics;
 
 import utils.GlobalConfig;
-import utils.Graphics;
+import utils.VCGraphics;
 import utils.Log;
 
 import java.awt.*;
@@ -59,14 +59,14 @@ public abstract class RenderApplication extends Canvas implements Runnable {
             long time = System.nanoTime();
             long difference = time - lastTime;
 
-            Graphics.deltaTime += difference / Graphics.NS_PER_FSP;
+            VCGraphics.deltaTime += difference / VCGraphics.NS_PER_FSP;
             lastTime = time;
 
             // 60 atualizacoes por segundo
-           while(Graphics.deltaTime >= 1) {
+           while(VCGraphics.deltaTime >= 1) {
                update();
-               Graphics.ups++;
-               Graphics.deltaTime--;
+               VCGraphics.ups++;
+               VCGraphics.deltaTime--;
                shouldRender = true;
            }
 
@@ -74,17 +74,17 @@ public abstract class RenderApplication extends Canvas implements Runnable {
 
             if(shouldRender) {
                 render();
-                Graphics.fps++;
+                VCGraphics.fps++;
                 shouldRender = false;
             }
 
             if(System.currentTimeMillis() - currentTime > 1000) {
                 currentTime += 1000;
 
-                Log.titleLog("ups: " + Graphics.ups + "/fps: " + Graphics.fps);
+                Log.titleLog("ups: " + VCGraphics.ups + "/fps: " + VCGraphics.fps);
 
-                Graphics.fps = 0;
-                Graphics.ups = 0;
+                VCGraphics.fps = 0;
+                VCGraphics.ups = 0;
             }
         }
     }
