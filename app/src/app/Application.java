@@ -1,11 +1,10 @@
 package app;
 
 import graphics.RenderApplication;
+import utils.Log;
 import window.Window;
 
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class Application extends RenderApplication {
 
@@ -30,10 +29,12 @@ public class Application extends RenderApplication {
     }
 
     public static void main(String[] args) {
+
         Application application = new Application();
         Window window = new Window(application, "Vacuum Cleaner");
 
-        application.start();
+        Log.setWindow(window);
 
+        application.start();
     }
 }

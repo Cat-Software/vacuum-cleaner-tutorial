@@ -1,6 +1,8 @@
 package graphics;
 
 import utils.GlobalConfig;
+import utils.Graphics;
+import utils.Log;
 
 import java.awt.*;
 
@@ -30,6 +32,14 @@ public abstract class RenderApplication extends Canvas implements Runnable {
         }
     }
 
+    public void waitTime(long sleepTime) {
+        try {
+            Thread.sleep(sleepTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public abstract void initializeResources();
 
     public abstract void update();
@@ -40,9 +50,42 @@ public abstract class RenderApplication extends Canvas implements Runnable {
 
     @Override
     public void run() {
+
+        long currentTime = System.currentTimeMillis();
+        long lastTime = System.nanoTime();
+        boolean shouldRender = false;
+
         while (isRunning) {
-            update();
-            render();
+            long time = System.nanoTime();
+            long difference = time - lastTime;
+
+            Graphics.deltaTime += difference / Graphics.NS_PER_FSP;
+            lastTime = time;
+
+            // 60 atualizacoes por segundo
+           while(Graphics.deltaTime >= 1) {
+               update();
+               Graphics.ups++;
+               Graphics.deltaTime--;
+               shouldRender = true;
+           }
+
+           waitTime(5);
+
+            if(shouldRender) {
+                render();
+                Graphics.fps++;
+                shouldRender = false;
+            }
+
+            if(System.currentTimeMillis() - currentTime > 1000) {
+                currentTime += 1000;
+
+                Log.titleLog("ups: " + Graphics.ups + "/fps: " + Graphics.fps);
+
+                Graphics.fps = 0;
+                Graphics.ups = 0;
+            }
         }
     }
 }
