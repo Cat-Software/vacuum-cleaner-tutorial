@@ -1,6 +1,6 @@
-package utils;
+package com.github.catsoftware.vc.utils;
 
-public final class GlobalConfig {
+public final class Global {
     public static final float ASPECT_RATIO = 4.0f / 3.0f;
     public static final int WIDTH = 750;
     public static final int HEIGHT = WIDTH / ((int) ASPECT_RATIO);

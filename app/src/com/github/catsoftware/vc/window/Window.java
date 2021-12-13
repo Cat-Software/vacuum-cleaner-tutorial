@@ -1,6 +1,6 @@
-package window;
+package com.github.catsoftware.vc.window;
 
-import graphics.RenderApplication;
+import com.github.catsoftware.vc.graphics.RenderApplication;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;

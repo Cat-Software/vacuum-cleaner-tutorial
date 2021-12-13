@@ -1,9 +1,9 @@
 package app;
 
-import graphics.RenderApplication;
-import utils.GlobalConfig;
-import utils.Log;
-import window.Window;
+import com.github.catsoftware.vc.graphics.RenderApplication;
+import com.github.catsoftware.vc.utils.Global;
+import com.github.catsoftware.vc.utils.Log;
+import com.github.catsoftware.vc.window.Window;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 
 public class Application extends RenderApplication {
 
-    private BufferedImage bufferedImage = new BufferedImage(GlobalConfig.WIDTH, GlobalConfig.HEIGHT, BufferedImage.TYPE_INT_RGB);
+    private BufferedImage bufferedImage = new BufferedImage(Global.WIDTH, Global.HEIGHT, BufferedImage.TYPE_INT_RGB);
 
     @Override
     public void initializeResources() {
@@ -28,13 +28,13 @@ public class Application extends RenderApplication {
         BufferStrategy bufferStrategy = getBufferStrategy();
 
         if(bufferStrategy == null) {
-            createBufferStrategy(GlobalConfig.DOUBLE_BUFFER);
+            createBufferStrategy(Global.DOUBLE_BUFFER);
             return;
         }
 
         Graphics graphics = bufferedImage.getGraphics();
         graphics.setColor(Color.BLACK);
-        graphics.fillRect(0, 0, GlobalConfig.WIDTH, GlobalConfig.HEIGHT);
+        graphics.fillRect(0, 0, Global.WIDTH, Global.HEIGHT);
 
         graphics.setColor(Color.BLUE);
         graphics.fillRect(150, 150, 200, 200);

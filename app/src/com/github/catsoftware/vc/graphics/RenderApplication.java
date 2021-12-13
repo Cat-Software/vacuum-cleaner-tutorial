@@ -1,8 +1,8 @@
-package graphics;
+package com.github.catsoftware.vc.graphics;
 
-import utils.GlobalConfig;
-import utils.VCGraphics;
-import utils.Log;
+import com.github.catsoftware.vc.utils.Global;
+import com.github.catsoftware.vc.utils.Graphics;
+import com.github.catsoftware.vc.utils.Log;
 
 import java.awt.*;
 
@@ -12,9 +12,9 @@ public abstract class RenderApplication extends Canvas implements Runnable {
     private Thread renderApplicationThread;
 
     public RenderApplication() {
-        setMinimumSize(new Dimension(GlobalConfig.WIDTH, GlobalConfig.HEIGHT));
-        setMaximumSize(new Dimension(GlobalConfig.WIDTH, GlobalConfig.HEIGHT));
-        setPreferredSize(new Dimension(GlobalConfig.WIDTH, GlobalConfig.HEIGHT));
+        setMinimumSize(new Dimension(Global.WIDTH, Global.HEIGHT));
+        setMaximumSize(new Dimension(Global.WIDTH, Global.HEIGHT));
+        setPreferredSize(new Dimension(Global.WIDTH, Global.HEIGHT));
     }
 
     public synchronized void start() {
@@ -30,6 +30,7 @@ public abstract class RenderApplication extends Canvas implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.exit(0);
     }
 
     public void waitTime(long sleepTime) {
@@ -58,15 +59,14 @@ public abstract class RenderApplication extends Canvas implements Runnable {
         while (isRunning) {
             long time = System.nanoTime();
             long difference = time - lastTime;
-
-            VCGraphics.deltaTime += difference / VCGraphics.NS_PER_FSP;
             lastTime = time;
 
-            // 60 atualizacoes por segundo
-           while(VCGraphics.deltaTime >= 1) {
+            Graphics.deltaTime += difference / Graphics.NS_PER_FSP;
+
+           while(Graphics.deltaTime >= 1) {
                update();
-               VCGraphics.ups++;
-               VCGraphics.deltaTime--;
+               Graphics.ups++;
+               Graphics.deltaTime--;
                shouldRender = true;
            }
 
@@ -74,17 +74,17 @@ public abstract class RenderApplication extends Canvas implements Runnable {
 
             if(shouldRender) {
                 render();
-                VCGraphics.fps++;
+                Graphics.fps++;
                 shouldRender = false;
             }
 
             if(System.currentTimeMillis() - currentTime > 1000) {
                 currentTime += 1000;
 
-                Log.titleLog("ups: " + VCGraphics.ups + "/fps: " + VCGraphics.fps);
+                Log.titleLog("ups: " + Graphics.ups + "/fps: " + Graphics.fps);
 
-                VCGraphics.fps = 0;
-                VCGraphics.ups = 0;
+                Graphics.fps = 0;
+                Graphics.ups = 0;
             }
         }
     }
