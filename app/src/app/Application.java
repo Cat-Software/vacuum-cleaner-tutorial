@@ -1,13 +1,13 @@
 package app;
 
-import com.github.catsoftware.vc.graphics.RenderApplication;
-import com.github.catsoftware.vc.graphics.Texture;
-import com.github.catsoftware.vc.graphics.TextureRegion;
-import com.github.catsoftware.vc.inputs.KeyboardInput;
-import com.github.catsoftware.vc.inputs.KeyboardInputListener;
-import com.github.catsoftware.vc.utils.Global;
-import com.github.catsoftware.vc.utils.Log;
-import com.github.catsoftware.vc.window.Window;
+import com.github.catsoftware.engine.graphics.RenderApplication;
+import com.github.catsoftware.engine.graphics.Texture;
+import com.github.catsoftware.engine.graphics.TextureRegion;
+import com.github.catsoftware.engine.inputs.KeyboardInput;
+import com.github.catsoftware.engine.inputs.KeyboardInputListener;
+import com.github.catsoftware.engine.utils.Global;
+import com.github.catsoftware.engine.utils.Log;
+import com.github.catsoftware.engine.window.Window;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

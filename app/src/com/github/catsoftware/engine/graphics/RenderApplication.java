@@ -1,9 +1,9 @@
-package com.github.catsoftware.vc.graphics;
+package com.github.catsoftware.engine.graphics;
 
-import com.github.catsoftware.vc.inputs.KeyboardInputListener;
-import com.github.catsoftware.vc.utils.Global;
-import com.github.catsoftware.vc.utils.Graphics;
-import com.github.catsoftware.vc.utils.Log;
+import com.github.catsoftware.engine.inputs.KeyboardInputListener;
+import com.github.catsoftware.engine.utils.Global;
+import com.github.catsoftware.engine.utils.Graphics;
+import com.github.catsoftware.engine.utils.Log;
 
 import java.awt.*;
 

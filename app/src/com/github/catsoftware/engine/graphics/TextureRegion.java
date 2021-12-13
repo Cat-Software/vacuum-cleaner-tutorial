@@ -1,7 +1,6 @@
-package com.github.catsoftware.vc.graphics;
+package com.github.catsoftware.engine.graphics;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class TextureRegion {
 

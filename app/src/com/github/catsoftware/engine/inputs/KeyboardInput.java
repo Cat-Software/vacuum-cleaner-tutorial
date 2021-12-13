@@ -1,4 +1,4 @@
-package com.github.catsoftware.vc.inputs;
+package com.github.catsoftware.engine.inputs;
 
 import java.awt.event.KeyEvent;
 
