@@ -48,11 +48,11 @@ public class VacuumCleanerModel {
         this.velocity = velocity;
     }
 
-    public boolean isHasCollision() {
+    public boolean hasCollision() {
         return hasCollision;
     }
 
-    public void setHasCollision(boolean hasCollision) {
+    public void setCollision(boolean hasCollision) {
         this.hasCollision = hasCollision;
     }
 
