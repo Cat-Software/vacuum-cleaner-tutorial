@@ -3,8 +3,8 @@ package com.github.catsoftware.vc.commands.vacuumcleaner;
 import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
 import com.github.catsoftware.vc.models.VacuumCleanerModel;
 
-public final class MoveVacuumCleanerCommand extends VacuumCleanerCommand {
-    public MoveVacuumCleanerCommand(
+public final class MoveCommand extends VacuumCleanerCommand {
+    public MoveCommand(
             VacuumCleanerModel vacuumCleanerModel,
             VacuumCleanerRenderEntity vacuumCleanerRenderEntity
     ) {

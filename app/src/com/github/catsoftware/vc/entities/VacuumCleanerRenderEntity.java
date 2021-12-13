@@ -13,7 +13,7 @@ public class VacuumCleanerRenderEntity extends RenderEntity {
     private Direction previousDirection;
     private int currentTextureIndex;
 
-    private TextureRegion[] textureRegions = {
+    private final TextureRegion[] textureRegions = {
             new TextureRegion(80, 48, 16, 16, Loader.DEFAULT_TEXTURE),
             new TextureRegion(80, 32, 16, 16, Loader.DEFAULT_TEXTURE),
             new TextureRegion(96, 48, 16, 16, Loader.DEFAULT_TEXTURE),
@@ -27,7 +27,6 @@ public class VacuumCleanerRenderEntity extends RenderEntity {
         currentTextureIndex = direction.ordinal();
         setTextureRegion(textureRegions[currentTextureIndex]);
     }
-
 
     public void setDirection(Direction direction) {
         previousDirection = currentDirection;

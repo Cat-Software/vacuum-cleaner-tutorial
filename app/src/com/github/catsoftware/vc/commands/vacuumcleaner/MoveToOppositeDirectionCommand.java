@@ -4,8 +4,8 @@ import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
 import com.github.catsoftware.vc.enums.Direction;
 import com.github.catsoftware.vc.models.VacuumCleanerModel;
 
-public class MoveToOppositeDirectionVacuumCleanerCommand extends VacuumCleanerCommand {
-    public MoveToOppositeDirectionVacuumCleanerCommand(
+public class MoveToOppositeDirectionCommand extends VacuumCleanerCommand {
+    public MoveToOppositeDirectionCommand(
             VacuumCleanerModel vacuumCleanerModel,
             VacuumCleanerRenderEntity vacuumCleanerRenderEntity
     ) {

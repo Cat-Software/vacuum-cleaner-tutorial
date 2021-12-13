@@ -6,9 +6,9 @@ import com.github.catsoftware.engine.inputs.KeyboardInputListener;
 import com.github.catsoftware.engine.utils.Global;
 import com.github.catsoftware.engine.utils.Log;
 import com.github.catsoftware.engine.window.Window;
-import com.github.catsoftware.vc.commands.vacuumcleaner.CheckBoundsCollisionVacuumCleanerCommand;
-import com.github.catsoftware.vc.commands.vacuumcleaner.MoveToOppositeDirectionVacuumCleanerCommand;
-import com.github.catsoftware.vc.commands.vacuumcleaner.MoveVacuumCleanerCommand;
+import com.github.catsoftware.vc.commands.vacuumcleaner.CheckBoundsCommand;
+import com.github.catsoftware.vc.commands.vacuumcleaner.MoveToOppositeDirectionCommand;
+import com.github.catsoftware.vc.commands.vacuumcleaner.MoveCommand;
 import com.github.catsoftware.vc.commands.vacuumcleaner.VacuumCleanerCommandPool;
 import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
 import com.github.catsoftware.vc.enums.Direction;
@@ -42,14 +42,14 @@ public class Application extends RenderApplication {
         vacuumCleanerModel = new VacuumCleanerModel(1, Direction.LEFT, 400.0f);
         vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
 
-        vacuumCleanerCommandPool.addCommand(new MoveVacuumCleanerCommand(vacuumCleanerModel, vacuumCleanerRenderEntity), 0);
-        vacuumCleanerCommandPool.addCommand(new CheckBoundsCollisionVacuumCleanerCommand(
+        vacuumCleanerCommandPool.addCommand(new MoveCommand(vacuumCleanerModel, vacuumCleanerRenderEntity), 0);
+        vacuumCleanerCommandPool.addCommand(new CheckBoundsCommand(
                 vacuumCleanerModel, vacuumCleanerRenderEntity,
                 0, 0,
                 Global.WIDTH,
                 Global.HEIGHT
         ), 1);
-        vacuumCleanerCommandPool.addCommand(new MoveToOppositeDirectionVacuumCleanerCommand(
+        vacuumCleanerCommandPool.addCommand(new MoveToOppositeDirectionCommand(
                 vacuumCleanerModel,
                 vacuumCleanerRenderEntity
         ));
