@@ -1,13 +1,17 @@
 package app;
 
 import com.github.catsoftware.engine.graphics.RenderApplication;
-import com.github.catsoftware.engine.graphics.Texture;
 import com.github.catsoftware.engine.graphics.TextureRegion;
 import com.github.catsoftware.engine.inputs.KeyboardInput;
 import com.github.catsoftware.engine.inputs.KeyboardInputListener;
 import com.github.catsoftware.engine.utils.Global;
 import com.github.catsoftware.engine.utils.Log;
 import com.github.catsoftware.engine.window.Window;
+import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
+import com.github.catsoftware.vc.enums.Direction;
+import com.github.catsoftware.vc.factories.VacuumCleanerFactory;
+import com.github.catsoftware.vc.models.VacuumCleanerModel;
+import com.github.catsoftware.vc.utils.Loader;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -16,8 +20,8 @@ import java.awt.image.BufferedImage;
 
 public class Application extends RenderApplication {
 
-    private Texture texture = new Texture("assets/sprites/spritesheet.png", 750, 128);
-    private TextureRegion floorTextureRegion = new TextureRegion(0, 32, 16, 16, texture);
+    private VacuumCleanerModel vacuumCleanerModel;
+    private VacuumCleanerRenderEntity vacuumCleanerRenderEntity;
 
     private BufferedImage bufferedImage = new BufferedImage(Global.WIDTH, Global.HEIGHT, BufferedImage.TYPE_INT_RGB);
 
@@ -31,7 +35,8 @@ public class Application extends RenderApplication {
 
     @Override
     public void initializeResources() {
-
+        vacuumCleanerModel = new VacuumCleanerModel(1, Direction.RIGHT, 400.0f);
+        vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
     }
 
     @Override
@@ -62,10 +67,10 @@ public class Application extends RenderApplication {
 
         Graphics graphics = bufferedImage.getGraphics();
         graphics.setColor(Color.BLACK);
-        graphics.fillRect(0, 0, Global.WIDTH, Global.HEIGHT);
+        graphics.clearRect(0, 0, Global.WIDTH, Global.HEIGHT);
 
         graphics.setColor(Color.BLUE);
-        graphics.drawImage(floorTextureRegion.getTexture(4), 150, 150, null);
+        vacuumCleanerRenderEntity.render(graphics);
 
         graphics = bufferStrategy.getDrawGraphics();
         graphics.drawImage(bufferedImage, 0, 0, null);
@@ -90,6 +95,7 @@ public class Application extends RenderApplication {
         Log.setWindow(window);
 
         application.activeKeyboardListener();
+        application.initializeResources();
         application.start();
     }
 }
