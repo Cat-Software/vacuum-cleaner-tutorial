@@ -28,13 +28,22 @@ public class VacuumCleanerRenderEntity extends RenderEntity {
         setTextureRegion(textureRegions[currentTextureIndex]);
     }
 
+
+    public void setDirection(Direction direction) {
+        previousDirection = currentDirection;
+        currentDirection = direction;
+        currentTextureIndex = direction.ordinal();
+    }
+
     @Override
     public void update() {
-
+        if(currentDirection != previousDirection)
+            setTextureRegion(textureRegions[currentTextureIndex]);
     }
 
     @Override
     public void render(Graphics graphics) {
         super.render(graphics);
     }
+
 }
