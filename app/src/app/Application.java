@@ -1,6 +1,8 @@
 package app;
 
 import com.github.catsoftware.vc.graphics.RenderApplication;
+import com.github.catsoftware.vc.graphics.Texture;
+import com.github.catsoftware.vc.graphics.TextureRegion;
 import com.github.catsoftware.vc.utils.Global;
 import com.github.catsoftware.vc.utils.Log;
 import com.github.catsoftware.vc.window.Window;
@@ -10,6 +12,9 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 public class Application extends RenderApplication {
+
+    private Texture texture = new Texture("assets/sprites/spritesheet.png", 750, 128);
+    private TextureRegion floorTextureRegion = new TextureRegion(0, 32, 16, 16, texture);
 
     private BufferedImage bufferedImage = new BufferedImage(Global.WIDTH, Global.HEIGHT, BufferedImage.TYPE_INT_RGB);
 
@@ -36,7 +41,7 @@ public class Application extends RenderApplication {
         graphics.fillRect(0, 0, Global.WIDTH, Global.HEIGHT);
 
         graphics.setColor(Color.BLUE);
-        graphics.fillRect(150, 150, 200, 200);
+        graphics.drawImage(floorTextureRegion.getTexture(4), 150, 150, null);
 
         graphics = bufferStrategy.getDrawGraphics();
         graphics.drawImage(bufferedImage, 0, 0, null);
