@@ -1,24 +1,24 @@
-package com.github.catsoftware.vc.entities;
+package com.github.catsoftware.vc.models;
 
 import com.github.catsoftware.vc.enums.Direction;
 
 import java.util.List;
 
-public class VacuumCleaner {
+public class VacuumCleanerModel {
     private int id;
     private Direction direction;
     private float velocity;
     private boolean hasCollision;
     private int collisionCount;
-    private List<Trash> collectedTrashes;
+    private List<TrashModel> collectedTrashModels;
 
-    public VacuumCleaner(int id) {
+    public VacuumCleanerModel(int id) {
         this.id = id;
         this.velocity = 400.0f;
         direction = Direction.RIGHT;
     }
 
-    public VacuumCleaner(int id, Direction direction, float velocity) {
+    public VacuumCleanerModel(int id, Direction direction, float velocity) {
         this.id = id;
         this.direction = direction;
         this.velocity = velocity;
@@ -64,15 +64,15 @@ public class VacuumCleaner {
         this.collisionCount = collisionCount;
     }
 
-    public List<Trash> getCollectedTrashes() {
-        return List.copyOf(collectedTrashes);
+    public List<TrashModel> getCollectedTrashes() {
+        return List.copyOf(collectedTrashModels);
     }
 
-    public void addTrash(Trash trash) {
-        collectedTrashes.add(trash);
+    public void addTrash(TrashModel trashModel) {
+        collectedTrashModels.add(trashModel);
     }
 
     public int amountCollectedTrashes() {
-        return collectedTrashes.size();
+        return collectedTrashModels.size();
     }
 }

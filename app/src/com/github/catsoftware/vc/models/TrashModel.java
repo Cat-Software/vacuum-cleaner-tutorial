@@ -1,11 +1,11 @@
-package com.github.catsoftware.vc.entities;
+package com.github.catsoftware.vc.models;
 
-public class Trash {
+public class TrashModel {
 
     private int id;
     private boolean isCollected;
 
-    public Trash(int id, boolean isCollected) {
+    public TrashModel(int id, boolean isCollected) {
         this.id = id;
         this.isCollected = isCollected;
     }
