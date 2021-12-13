@@ -1,5 +1,6 @@
 package com.github.catsoftware.vc.graphics;
 
+import com.github.catsoftware.vc.inputs.KeyboardInputListener;
 import com.github.catsoftware.vc.utils.Global;
 import com.github.catsoftware.vc.utils.Graphics;
 import com.github.catsoftware.vc.utils.Log;
@@ -10,11 +11,25 @@ public abstract class RenderApplication extends Canvas implements Runnable {
 
     private boolean isRunning;
     private Thread renderApplicationThread;
+    protected KeyboardInputListener keyboardInputListener;
 
     public RenderApplication() {
+        setSize();
+    }
+
+    public RenderApplication(KeyboardInputListener keyboardInputListener) {
+        this.keyboardInputListener = keyboardInputListener;
+        setSize();
+    }
+
+    private void setSize() {
         setMinimumSize(new Dimension(Global.WIDTH, Global.HEIGHT));
         setMaximumSize(new Dimension(Global.WIDTH, Global.HEIGHT));
         setPreferredSize(new Dimension(Global.WIDTH, Global.HEIGHT));
+    }
+
+    public void activeKeyboardListener() {
+        addKeyListener(keyboardInputListener);
     }
 
     public synchronized void start() {
@@ -43,6 +58,8 @@ public abstract class RenderApplication extends Canvas implements Runnable {
 
     public abstract void initializeResources();
 
+    public abstract void inputs(double deltaTime);
+
     public abstract void update(double deltaTime);
 
     public abstract void render();
@@ -68,6 +85,7 @@ public abstract class RenderApplication extends Canvas implements Runnable {
             Graphics.deltaTime = difference;
 
             while (perfectDelta >= 1) {
+                inputs(Graphics.deltaTime / 1e+9);
                 update(Graphics.deltaTime / 1e+9);
                 Graphics.ups++;
                 perfectDelta--;

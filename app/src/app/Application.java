@@ -3,11 +3,14 @@ package app;
 import com.github.catsoftware.vc.graphics.RenderApplication;
 import com.github.catsoftware.vc.graphics.Texture;
 import com.github.catsoftware.vc.graphics.TextureRegion;
+import com.github.catsoftware.vc.inputs.KeyboardInput;
+import com.github.catsoftware.vc.inputs.KeyboardInputListener;
 import com.github.catsoftware.vc.utils.Global;
 import com.github.catsoftware.vc.utils.Log;
 import com.github.catsoftware.vc.window.Window;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -18,9 +21,30 @@ public class Application extends RenderApplication {
 
     private BufferedImage bufferedImage = new BufferedImage(Global.WIDTH, Global.HEIGHT, BufferedImage.TYPE_INT_RGB);
 
+    public Application() {
+        super();
+    }
+
+    public Application(KeyboardInputListener keyboardInputListener) {
+        super(keyboardInputListener);
+    }
+
     @Override
     public void initializeResources() {
 
+    }
+
+    @Override
+    public void inputs(double deltaTime) {
+        keyboardInputListener.applyKeyCount();
+
+        if(keyboardInputListener.hasPressedOnce(KeyEvent.VK_ESCAPE)) {
+            System.out.println("ESCAPE HAS BEN PRESSED");
+        }
+
+//        if(keyboardInputListener.hasPressed(KeyEvent.VK_ESCAPE)) {
+//            System.out.println("ESCAPE HAS BEN PRESSED");
+//        }
     }
 
     @Override
@@ -59,12 +83,13 @@ public class Application extends RenderApplication {
     }
 
     public static void main(String[] args) {
-
-        Application application = new Application();
+        KeyboardInput keyboardInput = new KeyboardInput();
+        Application application = new Application(keyboardInput);
         Window window = new Window(application, "Vacuum Cleaner");
 
         Log.setWindow(window);
 
+        application.activeKeyboardListener();
         application.start();
     }
 }
