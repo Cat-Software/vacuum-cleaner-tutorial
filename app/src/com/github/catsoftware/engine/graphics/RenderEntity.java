@@ -39,7 +39,7 @@ public abstract class RenderEntity implements Renderable {
     }
 
     public int getWidth() {
-        return width;
+        return width  * textureRegion.getScaleFactor();
     }
 
     public void setWidth(int width) {
@@ -47,7 +47,7 @@ public abstract class RenderEntity implements Renderable {
     }
 
     public int getHeight() {
-        return height;
+        return height * textureRegion.getScaleFactor();
     }
 
     public void setHeight(int height) {

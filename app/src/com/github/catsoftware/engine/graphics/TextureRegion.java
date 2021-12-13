@@ -50,4 +50,8 @@ public class TextureRegion {
     public int getHeight() {
         return height * scaleFactor;
     }
+
+    public int getScaleFactor() {
+        return scaleFactor;
+    }
 }
