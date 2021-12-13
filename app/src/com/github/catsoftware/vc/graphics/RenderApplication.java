@@ -43,7 +43,7 @@ public abstract class RenderApplication extends Canvas implements Runnable {
 
     public abstract void initializeResources();
 
-    public abstract void update();
+    public abstract void update(double deltaTime);
 
     public abstract void render();
 
@@ -56,32 +56,36 @@ public abstract class RenderApplication extends Canvas implements Runnable {
         long lastTime = System.nanoTime();
         boolean shouldRender = false;
 
+        double perfectDelta = 0; // 16ms
+
         while (isRunning) {
             long time = System.nanoTime();
             long difference = time - lastTime;
             lastTime = time;
 
-            Graphics.deltaTime += difference / Graphics.NS_PER_FSP;
+            perfectDelta += difference / Graphics.NS_PER_FSP;
 
-           while(Graphics.deltaTime >= 1) {
-               update();
-               Graphics.ups++;
-               Graphics.deltaTime--;
-               shouldRender = true;
-           }
+            Graphics.deltaTime = difference;
 
-           waitTime(5);
+            while (perfectDelta >= 1) {
+                update(Graphics.deltaTime / 1e+9);
+                Graphics.ups++;
+                Graphics.deltaTime--;
+                shouldRender = true;
+            }
 
-            if(shouldRender) {
+            waitTime(5);
+
+            if (shouldRender) {
                 render();
                 Graphics.fps++;
                 shouldRender = false;
             }
 
-            if(System.currentTimeMillis() - currentTime > 1000) {
+            if (System.currentTimeMillis() - currentTime > 1000) {
                 currentTime += 1000;
 
-                Log.titleLog("ups: " + Graphics.ups + "/fps: " + Graphics.fps);
+                Log.titleLog("DEBUG | ups: " + Graphics.ups + "/fps: " + Graphics.fps);
 
                 Graphics.fps = 0;
                 Graphics.ups = 0;
