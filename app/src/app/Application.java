@@ -9,6 +9,7 @@ import com.github.catsoftware.engine.window.Window;
 import com.github.catsoftware.vc.commands.vacuumcleaner.CheckBoundsCollisionVacuumCleanerCommand;
 import com.github.catsoftware.vc.commands.vacuumcleaner.MoveToOppositeDirectionVacuumCleanerCommand;
 import com.github.catsoftware.vc.commands.vacuumcleaner.MoveVacuumCleanerCommand;
+import com.github.catsoftware.vc.commands.vacuumcleaner.VacuumCleanerCommandPool;
 import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
 import com.github.catsoftware.vc.enums.Direction;
 import com.github.catsoftware.vc.factories.VacuumCleanerFactory;
@@ -24,10 +25,7 @@ public class Application extends RenderApplication {
     private VacuumCleanerModel vacuumCleanerModel;
     private VacuumCleanerRenderEntity vacuumCleanerRenderEntity;
 
-    private MoveVacuumCleanerCommand moveVacuumCleanerCommand;
-    private MoveToOppositeDirectionVacuumCleanerCommand moveToOppositeDirectionVacuumCleanerCommand;
-
-    private CheckBoundsCollisionVacuumCleanerCommand checkBoundsCollisionVacuumCleanerCommand;
+    private VacuumCleanerCommandPool vacuumCleanerCommandPool = new VacuumCleanerCommandPool();
 
     private BufferedImage bufferedImage = new BufferedImage(Global.WIDTH, Global.HEIGHT, BufferedImage.TYPE_INT_RGB);
 
@@ -44,43 +42,31 @@ public class Application extends RenderApplication {
         vacuumCleanerModel = new VacuumCleanerModel(1, Direction.LEFT, 400.0f);
         vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
 
-        moveVacuumCleanerCommand = new MoveVacuumCleanerCommand(vacuumCleanerModel, vacuumCleanerRenderEntity);
-        moveToOppositeDirectionVacuumCleanerCommand = new MoveToOppositeDirectionVacuumCleanerCommand(
-                vacuumCleanerModel,
-                vacuumCleanerRenderEntity
-        );
-
-        checkBoundsCollisionVacuumCleanerCommand = new CheckBoundsCollisionVacuumCleanerCommand(
+        vacuumCleanerCommandPool.addCommand(new MoveVacuumCleanerCommand(vacuumCleanerModel, vacuumCleanerRenderEntity), 0);
+        vacuumCleanerCommandPool.addCommand(new CheckBoundsCollisionVacuumCleanerCommand(
                 vacuumCleanerModel, vacuumCleanerRenderEntity,
-                0,0,
+                0, 0,
                 Global.WIDTH,
                 Global.HEIGHT
-        );
+        ), 1);
+        vacuumCleanerCommandPool.addCommand(new MoveToOppositeDirectionVacuumCleanerCommand(
+                vacuumCleanerModel,
+                vacuumCleanerRenderEntity
+        ));
     }
 
     @Override
     public void inputs(double deltaTime) {
         keyboardInputListener.applyKeyCount();
 
-        if(keyboardInputListener.hasPressedOnce(KeyEvent.VK_ESCAPE)) {
+        if (keyboardInputListener.hasPressedOnce(KeyEvent.VK_ESCAPE)) {
             System.out.println("ESCAPE HAS BEN PRESSED");
         }
-
-//        if(keyboardInputListener.hasPressed(KeyEvent.VK_ESCAPE)) {
-//            System.out.println("ESCAPE HAS BEN PRESSED");
-//        }
     }
 
     @Override
     public void update(double deltaTime) {
-
-        moveVacuumCleanerCommand.execute(deltaTime);
-        checkBoundsCollisionVacuumCleanerCommand.execute(deltaTime);
-
-        if (vacuumCleanerModel.hasCollision()) {
-            moveToOppositeDirectionVacuumCleanerCommand.execute(deltaTime);
-        }
-
+        vacuumCleanerCommandPool.applyCommands(deltaTime);
         vacuumCleanerRenderEntity.update();
     }
 
@@ -88,7 +74,7 @@ public class Application extends RenderApplication {
     public void render() {
         BufferStrategy bufferStrategy = getBufferStrategy();
 
-        if(bufferStrategy == null) {
+        if (bufferStrategy == null) {
             createBufferStrategy(Global.DOUBLE_BUFFER);
             return;
         }
@@ -107,7 +93,7 @@ public class Application extends RenderApplication {
 
         do {
             bufferStrategy.show();
-        } while(bufferStrategy.contentsLost());
+        } while (bufferStrategy.contentsLost());
     }
 
     @Override
