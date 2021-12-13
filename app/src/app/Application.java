@@ -1,17 +1,18 @@
 package app;
 
 import com.github.catsoftware.engine.graphics.RenderApplication;
-import com.github.catsoftware.engine.graphics.TextureRegion;
 import com.github.catsoftware.engine.inputs.KeyboardInput;
 import com.github.catsoftware.engine.inputs.KeyboardInputListener;
 import com.github.catsoftware.engine.utils.Global;
 import com.github.catsoftware.engine.utils.Log;
 import com.github.catsoftware.engine.window.Window;
+import com.github.catsoftware.vc.commands.vacuumcleaner.CheckBoundsCollisionVacuumCleanerCommand;
+import com.github.catsoftware.vc.commands.vacuumcleaner.MoveToOppositeDirectionVacuumCleanerCommand;
+import com.github.catsoftware.vc.commands.vacuumcleaner.MoveVacuumCleanerCommand;
 import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
 import com.github.catsoftware.vc.enums.Direction;
 import com.github.catsoftware.vc.factories.VacuumCleanerFactory;
 import com.github.catsoftware.vc.models.VacuumCleanerModel;
-import com.github.catsoftware.vc.utils.Loader;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,6 +23,11 @@ public class Application extends RenderApplication {
 
     private VacuumCleanerModel vacuumCleanerModel;
     private VacuumCleanerRenderEntity vacuumCleanerRenderEntity;
+
+    private MoveVacuumCleanerCommand moveVacuumCleanerCommand;
+    private MoveToOppositeDirectionVacuumCleanerCommand moveToOppositeDirectionVacuumCleanerCommand;
+
+    private CheckBoundsCollisionVacuumCleanerCommand checkBoundsCollisionVacuumCleanerCommand;
 
     private BufferedImage bufferedImage = new BufferedImage(Global.WIDTH, Global.HEIGHT, BufferedImage.TYPE_INT_RGB);
 
@@ -35,8 +41,21 @@ public class Application extends RenderApplication {
 
     @Override
     public void initializeResources() {
-        vacuumCleanerModel = new VacuumCleanerModel(1, Direction.RIGHT, 400.0f);
+        vacuumCleanerModel = new VacuumCleanerModel(1, Direction.LEFT, 400.0f);
         vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
+
+        moveVacuumCleanerCommand = new MoveVacuumCleanerCommand(vacuumCleanerModel, vacuumCleanerRenderEntity);
+        moveToOppositeDirectionVacuumCleanerCommand = new MoveToOppositeDirectionVacuumCleanerCommand(
+                vacuumCleanerModel,
+                vacuumCleanerRenderEntity
+        );
+
+        checkBoundsCollisionVacuumCleanerCommand = new CheckBoundsCollisionVacuumCleanerCommand(
+                vacuumCleanerModel, vacuumCleanerRenderEntity,
+                0,0,
+                Global.WIDTH,
+                Global.HEIGHT
+        );
     }
 
     @Override
@@ -54,6 +73,15 @@ public class Application extends RenderApplication {
 
     @Override
     public void update(double deltaTime) {
+
+        moveVacuumCleanerCommand.execute(deltaTime);
+        checkBoundsCollisionVacuumCleanerCommand.execute(deltaTime);
+
+        if (vacuumCleanerModel.hasCollision()) {
+            moveToOppositeDirectionVacuumCleanerCommand.execute(deltaTime);
+        }
+
+        vacuumCleanerRenderEntity.update();
     }
 
     @Override
