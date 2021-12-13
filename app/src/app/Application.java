@@ -20,7 +20,6 @@ public class Application extends RenderApplication {
 
     @Override
     public void update(double deltaTime) {
-
     }
 
     @Override

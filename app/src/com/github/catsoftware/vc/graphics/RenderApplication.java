@@ -70,7 +70,7 @@ public abstract class RenderApplication extends Canvas implements Runnable {
             while (perfectDelta >= 1) {
                 update(Graphics.deltaTime / 1e+9);
                 Graphics.ups++;
-                Graphics.deltaTime--;
+                perfectDelta--;
                 shouldRender = true;
             }
 
