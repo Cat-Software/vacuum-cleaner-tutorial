@@ -47,16 +47,16 @@ public class Application extends RenderApplication {
 
     @Override
     public void initializeResources() {
-        VacuumCleanerModel vacuumCleanerModel = new VacuumCleanerModel(1, Direction.DOWN, 200.0f);
+        VacuumCleanerModel vacuumCleanerModel = new VacuumCleanerModel(1, Direction.DOWN, 60.f);
         vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
 
-        vacuumCleanerCommandPool.addCommand(new MoveCommand(vacuumCleanerModel, vacuumCleanerRenderEntity), 0);
+        vacuumCleanerCommandPool.addCommand(new MoveCommand(vacuumCleanerModel, vacuumCleanerRenderEntity));
         vacuumCleanerCommandPool.addCommand(new CheckBoundsCommand(
                 vacuumCleanerModel, vacuumCleanerRenderEntity,
                 0, 16 * 2,
                 Global.WIDTH / Global.SCALE_FACTOR,
                 Global.HEIGHT / Global.SCALE_FACTOR
-        ), 1);
+        ));
         vacuumCleanerCommandPool.addCommand(new MoveToOppositeDirectionCommand(
                 vacuumCleanerModel,
                 vacuumCleanerRenderEntity

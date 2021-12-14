@@ -20,26 +20,26 @@ public final class MoveCommand extends VacuumCleanerCommand {
         switch (vacuumCleanerModel.getDirection()) {
             case LEFT:
                 vacuumCleanerRenderEntity.setPositions(
-                        (int) (vacuumCleanerRenderEntity.getPosX() + (vacuumCleanerModel.getVelocity() * -1) * deltaTime * 1.23f),
+                        (int) (vacuumCleanerRenderEntity.getPosX() + (vacuumCleanerModel.getVelocity() * -1) * deltaTime),
                         vacuumCleanerRenderEntity.getPosY()
                 );
                 break;
             case RIGHT:
                 vacuumCleanerRenderEntity.setPositions(
-                        (int) (vacuumCleanerRenderEntity.getPosX() + (vacuumCleanerModel.getVelocity()) * deltaTime * 1.23f),
+                        (int) (vacuumCleanerRenderEntity.getPosX() + (vacuumCleanerModel.getVelocity()) * deltaTime),
                         vacuumCleanerRenderEntity.getPosY()
                 );
                 break;
             case UPPER:
                 vacuumCleanerRenderEntity.setPositions(
                         vacuumCleanerRenderEntity.getPosX(),
-                        (int) (vacuumCleanerRenderEntity.getPosY() + (vacuumCleanerModel.getVelocity() * -1) * deltaTime * 1.23f)
+                        (int) (vacuumCleanerRenderEntity.getPosY() + (vacuumCleanerModel.getVelocity() * -1) * deltaTime)
                 );
                 break;
             case DOWN:
                 vacuumCleanerRenderEntity.setPositions(
                         vacuumCleanerRenderEntity.getPosX(),
-                        (int) (vacuumCleanerRenderEntity.getPosY() + (vacuumCleanerModel.getVelocity()) * deltaTime * 1.23f)
+                        (int) (vacuumCleanerRenderEntity.getPosY() + (vacuumCleanerModel.getVelocity()) * deltaTime)
                 );
                 break;
         }
