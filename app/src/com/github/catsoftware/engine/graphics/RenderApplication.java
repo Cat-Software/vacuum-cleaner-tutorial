@@ -84,7 +84,7 @@ public abstract class RenderApplication extends Canvas implements Runnable {
 
             Graphics.deltaTime = difference;
 
-            while (perfectDelta >= 1) {
+            while (perfectDelta > 1) {
                 inputs(Graphics.deltaTime / 1e+9);
                 update(Graphics.deltaTime / 1e+9);
                 Graphics.ups++;
@@ -92,7 +92,7 @@ public abstract class RenderApplication extends Canvas implements Runnable {
                 shouldRender = true;
             }
 
-            waitTime(5);
+            waitTime(16);
 
             if (shouldRender) {
                 render();
