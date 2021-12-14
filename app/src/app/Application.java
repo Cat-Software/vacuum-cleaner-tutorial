@@ -39,15 +39,15 @@ public class Application extends RenderApplication {
 
     @Override
     public void initializeResources() {
-        vacuumCleanerModel = new VacuumCleanerModel(1, Direction.LEFT, 400.0f);
+        vacuumCleanerModel = new VacuumCleanerModel(1, Direction.DOWN, 200.0f);
         vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
 
         vacuumCleanerCommandPool.addCommand(new MoveCommand(vacuumCleanerModel, vacuumCleanerRenderEntity), 0);
         vacuumCleanerCommandPool.addCommand(new CheckBoundsCommand(
                 vacuumCleanerModel, vacuumCleanerRenderEntity,
                 0, 0,
-                Global.WIDTH,
-                Global.HEIGHT
+                Global.WIDTH / Global.SCALE_FACTOR,
+                Global.HEIGHT / Global.SCALE_FACTOR
         ), 1);
         vacuumCleanerCommandPool.addCommand(new MoveToOppositeDirectionCommand(
                 vacuumCleanerModel,
@@ -87,7 +87,13 @@ public class Application extends RenderApplication {
         vacuumCleanerRenderEntity.render(graphics);
 
         graphics = bufferStrategy.getDrawGraphics();
-        graphics.drawImage(bufferedImage, 0, 0, null);
+        graphics.drawImage(
+                bufferedImage,
+                0, 0,
+                Global.WIDTH * Global.SCALE_FACTOR,
+                Global.HEIGHT * Global.SCALE_FACTOR,
+                null
+        );
 
         graphics.dispose();
 

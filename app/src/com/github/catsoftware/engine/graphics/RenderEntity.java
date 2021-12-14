@@ -64,6 +64,6 @@ public abstract class RenderEntity implements Renderable {
 
     @Override
     public void render(Graphics graphics) {
-        graphics.drawImage(textureRegion.getTexture(4), posX, posY, null);
+        graphics.drawImage(textureRegion.getTexture(), posX, posY, null);
     }
 }

@@ -6,4 +6,5 @@ public final class Global {
     public static final int HEIGHT = WIDTH / ((int) ASPECT_RATIO);
 
     public static final int DOUBLE_BUFFER = 2;
+    public static final int SCALE_FACTOR = 4;
 }
