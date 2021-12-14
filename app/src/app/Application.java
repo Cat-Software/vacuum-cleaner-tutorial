@@ -8,30 +8,34 @@ import com.github.catsoftware.engine.utils.Global;
 import com.github.catsoftware.engine.utils.Log;
 import com.github.catsoftware.engine.window.Window;
 import com.github.catsoftware.vc.commands.vacuumcleaner.CheckBoundsCommand;
-import com.github.catsoftware.vc.commands.vacuumcleaner.MoveToOppositeDirectionCommand;
 import com.github.catsoftware.vc.commands.vacuumcleaner.MoveCommand;
+import com.github.catsoftware.vc.commands.vacuumcleaner.MoveToOppositeDirectionCommand;
 import com.github.catsoftware.vc.commands.vacuumcleaner.VacuumCleanerCommandPool;
 import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
 import com.github.catsoftware.vc.enums.Direction;
 import com.github.catsoftware.vc.factories.VacuumCleanerFactory;
 import com.github.catsoftware.vc.maps.Room;
 import com.github.catsoftware.vc.models.VacuumCleanerModel;
+import com.github.catsoftware.vc.objects.FloorTile;
+import com.github.catsoftware.vc.objects.WallFooterTile;
+import com.github.catsoftware.vc.objects.WallUpperTile;
 import com.github.catsoftware.vc.utils.Temp;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Application extends RenderApplication {
 
-    private VacuumCleanerModel vacuumCleanerModel;
     private VacuumCleanerRenderEntity vacuumCleanerRenderEntity;
 
-    private VacuumCleanerCommandPool vacuumCleanerCommandPool = new VacuumCleanerCommandPool();
+    private final VacuumCleanerCommandPool vacuumCleanerCommandPool = new VacuumCleanerCommandPool();
 
-    private TileMap tileMap = new Room(12, 12, 16);
-    private BufferedImage bufferedImage = new BufferedImage(Global.WIDTH, Global.HEIGHT, BufferedImage.TYPE_INT_RGB);
+    private final TileMap tileMap = new Room(12, 12, 16);
+    private final BufferedImage bufferedImage = new BufferedImage(Global.WIDTH, Global.HEIGHT, BufferedImage.TYPE_INT_RGB);
 
     public Application() {
         super();
@@ -43,7 +47,7 @@ public class Application extends RenderApplication {
 
     @Override
     public void initializeResources() {
-        vacuumCleanerModel = new VacuumCleanerModel(1, Direction.DOWN, 200.0f);
+        VacuumCleanerModel vacuumCleanerModel = new VacuumCleanerModel(1, Direction.DOWN, 200.0f);
         vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
 
         vacuumCleanerCommandPool.addCommand(new MoveCommand(vacuumCleanerModel, vacuumCleanerRenderEntity), 0);
@@ -59,7 +63,14 @@ public class Application extends RenderApplication {
         ));
 
         tileMap.setData(Temp.data);
-        tileMap.load();
+
+        List<String> list = new ArrayList<>();
+
+        list.add(WallFooterTile.class.getName());
+        list.add(WallUpperTile.class.getName());
+        list.add(FloorTile.class.getName());
+
+        tileMap.load(list);
     }
 
     @Override
