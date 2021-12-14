@@ -47,7 +47,7 @@ public class Application extends RenderApplication {
 
     @Override
     public void initializeResources() {
-        VacuumCleanerModel vacuumCleanerModel = new VacuumCleanerModel(1, Direction.DOWN, 60.f);
+        VacuumCleanerModel vacuumCleanerModel = new VacuumCleanerModel(1, Direction.DOWN, 0.95f);
         vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
 
         vacuumCleanerCommandPool.addCommand(new MoveCommand(vacuumCleanerModel, vacuumCleanerRenderEntity));

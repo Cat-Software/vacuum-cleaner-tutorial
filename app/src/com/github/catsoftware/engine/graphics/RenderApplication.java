@@ -84,21 +84,15 @@ public abstract class RenderApplication extends Canvas implements Runnable {
 
             Graphics.deltaTime = difference;
 
-            while (perfectDelta > 1) {
-                inputs(Graphics.deltaTime / 1e+9);
-                update(Graphics.deltaTime / 1e+9);
+            while (perfectDelta >= 1.0) {
+                inputs(perfectDelta);
+                update(perfectDelta);
                 Graphics.ups++;
                 perfectDelta--;
-                shouldRender = true;
             }
 
-            waitTime(16);
-
-            if (shouldRender) {
-                render();
-                Graphics.fps++;
-                shouldRender = false;
-            }
+            render();
+            Graphics.fps++;
 
             if (System.currentTimeMillis() - currentTime > 1000) {
                 currentTime += 1000;
