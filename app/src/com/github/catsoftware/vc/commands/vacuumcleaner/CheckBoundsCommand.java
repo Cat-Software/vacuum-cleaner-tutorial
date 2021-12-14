@@ -1,6 +1,7 @@
 package com.github.catsoftware.vc.commands.vacuumcleaner;
 
 import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
+import com.github.catsoftware.vc.enums.Direction;
 import com.github.catsoftware.vc.models.VacuumCleanerModel;
 
 public final class CheckBoundsCommand extends VacuumCleanerCommand {
@@ -28,15 +29,13 @@ public final class CheckBoundsCommand extends VacuumCleanerCommand {
     @Override
     public void execute(double deltaTime) {
         vacuumCleanerModel.setCollision(false);
-
-        if(vacuumCleanerRenderEntity.getPosX() < xMin)
+        if (vacuumCleanerRenderEntity.getPosX() < xMin && vacuumCleanerModel.getDirection() == Direction.LEFT)
             vacuumCleanerModel.setCollision(true);
-        if(vacuumCleanerRenderEntity.getPosX() + vacuumCleanerRenderEntity.getWidth() >= xBound)
+        else if (vacuumCleanerRenderEntity.getPosX() + vacuumCleanerRenderEntity.getWidth() >= xBound && vacuumCleanerModel.getDirection() == Direction.RIGHT)
             vacuumCleanerModel.setCollision(true);
-
-        if(vacuumCleanerRenderEntity.getPosY() < yMin)
+        else if (vacuumCleanerRenderEntity.getPosY() < yMin && vacuumCleanerModel.getDirection() == Direction.UPPER)
             vacuumCleanerModel.setCollision(true);
-        if(vacuumCleanerRenderEntity.getPosY() + vacuumCleanerRenderEntity.getHeight() >= yBound)
+        else if (vacuumCleanerRenderEntity.getPosY() + vacuumCleanerRenderEntity.getHeight() >= yBound && vacuumCleanerModel.getDirection() == Direction.DOWN)
             vacuumCleanerModel.setCollision(true);
     }
 }

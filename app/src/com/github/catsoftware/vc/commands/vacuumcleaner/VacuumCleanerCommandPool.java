@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VacuumCleanerCommandPool {
-    private List<VacuumCleanerCommand> vacuumCleanerCommands = new ArrayList<>();
+    private final List<VacuumCleanerCommand> vacuumCleanerCommands = new ArrayList<>();
 
     /**
-     *
-     * @param vacuumCleanerCommand
-     * @param priority 0 -> maior prioridade ...
+     * @param priority             0 -> maior prioridade ...
      */
     public void addCommand(VacuumCleanerCommand vacuumCleanerCommand, int priority) {
         vacuumCleanerCommands.add(priority, vacuumCleanerCommand);
@@ -20,7 +18,7 @@ public class VacuumCleanerCommandPool {
     }
 
     public void applyCommands(double deltaTime) {
-        for (VacuumCleanerCommand command: vacuumCleanerCommands) {
+        for (VacuumCleanerCommand command : vacuumCleanerCommands) {
             command.execute(deltaTime);
         }
     }
