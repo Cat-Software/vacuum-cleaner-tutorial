@@ -29,6 +29,7 @@ public abstract class Tile {
      * @param graphics Java.awt.Graphics
      */
     public void render(Graphics graphics) {
+        graphics.drawImage(textureRegion.getTexture(), posX * width, posY * height, null);
     }
 
     public void update(double deltaTime) {

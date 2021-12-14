@@ -3,6 +3,7 @@ package app;
 import com.github.catsoftware.engine.graphics.RenderApplication;
 import com.github.catsoftware.engine.inputs.KeyboardInput;
 import com.github.catsoftware.engine.inputs.KeyboardInputListener;
+import com.github.catsoftware.engine.tiles.TileMap;
 import com.github.catsoftware.engine.utils.Global;
 import com.github.catsoftware.engine.utils.Log;
 import com.github.catsoftware.engine.window.Window;
@@ -13,7 +14,9 @@ import com.github.catsoftware.vc.commands.vacuumcleaner.VacuumCleanerCommandPool
 import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
 import com.github.catsoftware.vc.enums.Direction;
 import com.github.catsoftware.vc.factories.VacuumCleanerFactory;
+import com.github.catsoftware.vc.maps.Room;
 import com.github.catsoftware.vc.models.VacuumCleanerModel;
+import com.github.catsoftware.vc.utils.Temp;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -27,6 +30,7 @@ public class Application extends RenderApplication {
 
     private VacuumCleanerCommandPool vacuumCleanerCommandPool = new VacuumCleanerCommandPool();
 
+    private TileMap tileMap = new Room(12, 12, 16);
     private BufferedImage bufferedImage = new BufferedImage(Global.WIDTH, Global.HEIGHT, BufferedImage.TYPE_INT_RGB);
 
     public Application() {
@@ -45,7 +49,7 @@ public class Application extends RenderApplication {
         vacuumCleanerCommandPool.addCommand(new MoveCommand(vacuumCleanerModel, vacuumCleanerRenderEntity), 0);
         vacuumCleanerCommandPool.addCommand(new CheckBoundsCommand(
                 vacuumCleanerModel, vacuumCleanerRenderEntity,
-                0, 0,
+                0, 16 * 2,
                 Global.WIDTH / Global.SCALE_FACTOR,
                 Global.HEIGHT / Global.SCALE_FACTOR
         ), 1);
@@ -53,6 +57,9 @@ public class Application extends RenderApplication {
                 vacuumCleanerModel,
                 vacuumCleanerRenderEntity
         ));
+
+        tileMap.setData(Temp.data);
+        tileMap.load();
     }
 
     @Override
@@ -83,7 +90,7 @@ public class Application extends RenderApplication {
         graphics.setColor(Color.BLACK);
         graphics.clearRect(0, 0, Global.WIDTH, Global.HEIGHT);
 
-        graphics.setColor(Color.BLUE);
+        tileMap.render(graphics);
         vacuumCleanerRenderEntity.render(graphics);
 
         graphics = bufferStrategy.getDrawGraphics();
