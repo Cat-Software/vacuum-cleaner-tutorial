@@ -1,6 +1,5 @@
 package com.github.catsoftware.vc.commands.vacuumcleaner;
 
-import com.github.catsoftware.engine.utils.Graphics;
 import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
 import com.github.catsoftware.vc.enums.Direction;
 import com.github.catsoftware.vc.models.VacuumCleanerModel;
@@ -18,7 +17,6 @@ public class RandoDirectionCommand extends VacuumCleanerCommand {
 
     @Override
     public void execute(double deltaTime) {
-        System.out.println("time: " + time);
         // Muda a direcao em aproximadamente 1 segundos...
         if (time > 1.5f) {
 
