@@ -1,9 +1,5 @@
 package com.github.catsoftware.engine.tiles;
 
-import com.github.catsoftware.vc.objects.FloorTile;
-import com.github.catsoftware.vc.objects.WallFooterTile;
-import com.github.catsoftware.vc.objects.WallUpperTile;
-
 import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.util.List;
@@ -28,8 +24,6 @@ public abstract class TileMap {
 
         totalTiles = width * height;
         totalLayers = 0;
-
-
     }
 
     public void setData(int[][][] data) {
