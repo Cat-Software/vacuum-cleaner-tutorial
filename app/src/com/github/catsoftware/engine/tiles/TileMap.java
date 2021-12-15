@@ -1,5 +1,6 @@
 package com.github.catsoftware.engine.tiles;
 
+import com.github.catsoftware.engine.graphics.RenderEntity;
 import com.github.catsoftware.engine.tiles.tiled.Layer;
 import com.github.catsoftware.engine.tiles.tiled.Map;
 
@@ -36,7 +37,7 @@ public abstract class TileMap {
         for (int layerIndex = 0; layerIndex < totalLayers; layerIndex++) {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    int tileId = layers.get(layerIndex).getTileId(x,y);
+                    int tileId = layers.get(layerIndex).getTileId(x, y);
                     int offsetX = layers.get(layerIndex).getOffsetx();
                     int offsetY = layers.get(layerIndex).getOffsety();
                     try {
@@ -71,6 +72,21 @@ public abstract class TileMap {
         for (int layerIndex = 0; layerIndex < totalLayers; layerIndex++) {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
+                    Tile tile = tiles[layerIndex][x + y * width];
+                    if (tile != null) tile.render(graphics);
+                }
+            }
+        }
+    }
+
+    public void renderOneEntityInLayer(Graphics graphics, RenderEntity renderEntity, int layerIndexToRender) {
+        for (int layerIndex = 0; layerIndex < totalLayers; layerIndex++) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+
+                    if(layerIndex == layerIndexToRender)
+                        renderEntity.render(graphics);
+
                     Tile tile = tiles[layerIndex][x + y * width];
                     if (tile != null) tile.render(graphics);
                 }
