@@ -1,13 +1,14 @@
 package app;
 
 import com.github.catsoftware.engine.graphics.RenderApplication;
+import com.github.catsoftware.engine.window.Window;
 import com.github.catsoftware.engine.inputs.KeyboardInput;
 import com.github.catsoftware.engine.inputs.KeyboardInputListener;
 import com.github.catsoftware.engine.tiles.TileMap;
 import com.github.catsoftware.engine.utils.Global;
 import com.github.catsoftware.engine.utils.Log;
-import com.github.catsoftware.engine.window.Window;
 import com.github.catsoftware.vc.commands.vacuumcleaner.*;
+import com.github.catsoftware.vc.entities.TrashRenderEntity;
 import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
 import com.github.catsoftware.vc.enums.Direction;
 import com.github.catsoftware.vc.factories.VacuumCleanerFactory;
@@ -27,6 +28,7 @@ import java.util.List;
 
 public class Application extends RenderApplication {
 
+    private TrashRenderEntity trashRenderEntity;
     private VacuumCleanerRenderEntity vacuumCleanerRenderEntity;
 
     private final VacuumCleanerCommandPool vacuumCleanerCommandPool = new VacuumCleanerCommandPool();
@@ -44,6 +46,8 @@ public class Application extends RenderApplication {
 
     @Override
     public void initializeResources() {
+        trashRenderEntity = new TrashRenderEntity(3 * 16, 3 * 16, 8, 8);
+
         VacuumCleanerModel vacuumCleanerModel = new VacuumCleanerModel(1, Direction.RIGHT, 200.00f);
         vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
 
@@ -100,6 +104,8 @@ public class Application extends RenderApplication {
         graphics.clearRect(0, 0, Global.WIDTH, Global.HEIGHT);
 
         tileMap.render(graphics);
+
+        trashRenderEntity.render(graphics);
         vacuumCleanerRenderEntity.render(graphics);
 
         graphics = bufferStrategy.getDrawGraphics();
