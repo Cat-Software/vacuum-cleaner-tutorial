@@ -7,10 +7,7 @@ import com.github.catsoftware.engine.tiles.TileMap;
 import com.github.catsoftware.engine.utils.Global;
 import com.github.catsoftware.engine.utils.Log;
 import com.github.catsoftware.engine.window.Window;
-import com.github.catsoftware.vc.commands.vacuumcleaner.CheckBoundsCommand;
-import com.github.catsoftware.vc.commands.vacuumcleaner.MoveCommand;
-import com.github.catsoftware.vc.commands.vacuumcleaner.MoveToOppositeDirectionCommand;
-import com.github.catsoftware.vc.commands.vacuumcleaner.VacuumCleanerCommandPool;
+import com.github.catsoftware.vc.commands.vacuumcleaner.*;
 import com.github.catsoftware.vc.entities.VacuumCleanerRenderEntity;
 import com.github.catsoftware.vc.enums.Direction;
 import com.github.catsoftware.vc.factories.VacuumCleanerFactory;
@@ -47,7 +44,7 @@ public class Application extends RenderApplication {
 
     @Override
     public void initializeResources() {
-        VacuumCleanerModel vacuumCleanerModel = new VacuumCleanerModel(1, Direction.DOWN, 0.95f);
+        VacuumCleanerModel vacuumCleanerModel = new VacuumCleanerModel(1, Direction.RIGHT, 200.00f);
         vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
 
         vacuumCleanerCommandPool.addCommand(new MoveCommand(vacuumCleanerModel, vacuumCleanerRenderEntity));
@@ -61,6 +58,7 @@ public class Application extends RenderApplication {
                 vacuumCleanerModel,
                 vacuumCleanerRenderEntity
         ));
+        vacuumCleanerCommandPool.addCommand(new RandoDirectionCommand(vacuumCleanerModel, vacuumCleanerRenderEntity));
 
         tileMap.setData(Temp.data);
 
