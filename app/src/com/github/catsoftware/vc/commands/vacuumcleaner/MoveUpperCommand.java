@@ -16,7 +16,7 @@ public final class MoveUpperCommand extends VacuumCleanerCommand {
     public void execute(double deltaTime) {
         if (vacuumCleanerModel.hasCollision()) return;
         vacuumCleanerRenderEntity.setPosY(
-                (int) (vacuumCleanerRenderEntity.getPosY() + ((vacuumCleanerModel.getVelocity() * -1) * deltaTime))
+                (int) (vacuumCleanerRenderEntity.getPosY() + (((vacuumCleanerModel.getVelocity() - 60) * -1) * deltaTime))
         );
     }
 }

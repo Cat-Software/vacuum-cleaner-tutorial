@@ -16,7 +16,7 @@ public final class MoveLeftCommand extends VacuumCleanerCommand {
     public void execute(double deltaTime) {
         if (vacuumCleanerModel.hasCollision()) return;
         vacuumCleanerRenderEntity.setPosX(
-                (int) (vacuumCleanerRenderEntity.getPosX() + ((vacuumCleanerModel.getVelocity() * -1) * deltaTime))
+                (int) (vacuumCleanerRenderEntity.getPosX() + (((vacuumCleanerModel.getVelocity() - 60) * -1) * deltaTime))
         );
     }
 }
