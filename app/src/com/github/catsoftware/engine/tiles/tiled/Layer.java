@@ -10,9 +10,10 @@ public class Layer {
     private int offsetx;
     private int offsety;
 
-    private int data[];
+    private int[] data;
 
-    public Layer() {}
+    public Layer() {
+    }
 
     public Layer(int id, String name, int width, int height) {
         this.id = id;
@@ -28,6 +29,10 @@ public class Layer {
         this.height = height;
         this.offsetx = offsetx;
         this.offsety = offsety;
+    }
+
+    public int getTileId(int x, int y) {
+        return data[x + y * width];
     }
 
     public int getId() {
