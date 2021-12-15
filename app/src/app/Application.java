@@ -53,6 +53,11 @@ import java.util.List;
 
 public class Application extends RenderApplication {
 
+    private MoveLeftCommand moveLeftCommand;
+    private MoveRightCommand moveRightCommand;
+    private MoveUpperCommand moveUpperCommand;
+    private MoveDownCommand moveDownCommand;
+
     private TrashRenderEntity trashRenderEntity;
     private VacuumCleanerRenderEntity vacuumCleanerRenderEntity;
 
@@ -75,6 +80,11 @@ public class Application extends RenderApplication {
 
         VacuumCleanerModel vacuumCleanerModel = new VacuumCleanerModel(1, Direction.RIGHT, 200.00f);
         vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
+
+        moveLeftCommand = new MoveLeftCommand(vacuumCleanerModel, vacuumCleanerRenderEntity);
+        moveRightCommand = new MoveRightCommand(vacuumCleanerModel, vacuumCleanerRenderEntity);
+        moveUpperCommand = new MoveUpperCommand(vacuumCleanerModel, vacuumCleanerRenderEntity);
+        moveDownCommand = new MoveDownCommand(vacuumCleanerModel, vacuumCleanerRenderEntity);
 
         vacuumCleanerCommandPool.addCommand(new MoveCommand(vacuumCleanerModel, vacuumCleanerRenderEntity));
         vacuumCleanerCommandPool.addCommand(new CheckBoundsCommand(
@@ -165,11 +175,27 @@ public class Application extends RenderApplication {
         if (keyboardInputListener.hasPressedOnce(KeyEvent.VK_ESCAPE)) {
             System.out.println("ESCAPE HAS BEN PRESSED");
         }
+
+        if(keyboardInputListener.hasPressed(KeyEvent.VK_NUMPAD4)) {
+            moveLeftCommand.execute(deltaTime);
+        }
+
+        if(keyboardInputListener.hasPressed(KeyEvent.VK_NUMPAD6)) {
+            moveRightCommand.execute(deltaTime);
+        }
+
+        if(keyboardInputListener.hasPressed(KeyEvent.VK_NUMPAD8)) {
+            moveUpperCommand.execute(deltaTime);
+        }
+
+        if(keyboardInputListener.hasPressed(KeyEvent.VK_NUMPAD2)) {
+            moveDownCommand.execute(deltaTime);
+        }
     }
 
     @Override
     public void update(double deltaTime) {
-        vacuumCleanerCommandPool.applyCommands(deltaTime);
+//        vacuumCleanerCommandPool.applyCommands(deltaTime);
         vacuumCleanerRenderEntity.update();
     }
 
@@ -186,10 +212,8 @@ public class Application extends RenderApplication {
         graphics.setColor(Color.BLACK);
         graphics.clearRect(0, 0, Global.WIDTH, Global.HEIGHT);
 
-        tileMap.render(graphics);
-
+        tileMap.renderOneEntityInLayer(graphics, vacuumCleanerRenderEntity, 1);
         trashRenderEntity.render(graphics);
-        vacuumCleanerRenderEntity.render(graphics);
 
         graphics = bufferStrategy.getDrawGraphics();
         graphics.drawImage(
