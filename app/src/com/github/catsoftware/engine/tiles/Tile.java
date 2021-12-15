@@ -14,6 +14,9 @@ public abstract class Tile {
     private int width;
     private int height;
 
+    private int offsetX;
+    private int offsetY;
+
     public Tile(int id, TextureRegion textureRegion, int posX, int posY, int width, int height) {
         this.id = id;
         this.textureRegion = textureRegion;
@@ -29,7 +32,7 @@ public abstract class Tile {
      * @param graphics Java.awt.Graphics
      */
     public void render(Graphics graphics) {
-        graphics.drawImage(textureRegion.getTexture(), posX * width, posY * height, null);
+        graphics.drawImage(textureRegion.getTexture(), (posX * width) + offsetX, (posY * height) + offsetY, null);
     }
 
     public void update(double deltaTime) {
@@ -73,5 +76,21 @@ public abstract class Tile {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public int getOffsetX() {
+        return offsetX;
+    }
+
+    public void setOffsetX(int offsetX) {
+        this.offsetX = offsetX;
+    }
+
+    public int getOffsetY() {
+        return offsetY;
+    }
+
+    public void setOffsetY(int offsetY) {
+        this.offsetY = offsetY;
     }
 }

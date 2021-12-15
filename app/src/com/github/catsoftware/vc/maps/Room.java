@@ -1,9 +1,10 @@
 package com.github.catsoftware.vc.maps;
 
 import com.github.catsoftware.engine.tiles.TileMap;
+import com.github.catsoftware.engine.tiles.tiled.Map;
 
 public class Room extends TileMap {
-    public Room(int width, int height, int tileSize) {
-        super(width, height, tileSize);
+    public Room(Map map, int tileSize) {
+        super(map, tileSize);
     }
 }
