@@ -66,6 +66,14 @@ public class Map {
         this.tileheight = tileheight;
     }
 
+    public int getTotalLayers() {
+        return layers.size();
+    }
+
+    public List<Layer> getLayers() {
+        return List.copyOf(layers);
+    }
+
     @Override
     public String toString() {
         return "Map{" +
