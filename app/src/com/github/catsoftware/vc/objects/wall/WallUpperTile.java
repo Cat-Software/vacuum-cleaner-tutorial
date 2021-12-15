@@ -1,4 +1,4 @@
-package com.github.catsoftware.vc.objects;
+package com.github.catsoftware.vc.objects.wall;
 
 import com.github.catsoftware.engine.graphics.TextureRegion;
 import com.github.catsoftware.engine.tiles.Tile;
