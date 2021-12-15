@@ -5,13 +5,15 @@ import com.github.catsoftware.engine.graphics.TextureRegion;
 import com.github.catsoftware.vc.enums.Direction;
 import com.github.catsoftware.vc.utils.Loader;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 public class VacuumCleanerRenderEntity extends RenderEntity {
 
     private Direction currentDirection;
     private Direction previousDirection;
     private int currentTextureIndex;
+
+    private Rectangle rectangle;
 
     private final TextureRegion[] textureRegions = {
             new TextureRegion(80, 48, 16, 16, Loader.DEFAULT_TEXTURE),
@@ -26,12 +28,18 @@ public class VacuumCleanerRenderEntity extends RenderEntity {
         previousDirection = direction;
         currentTextureIndex = direction.ordinal();
         setTextureRegion(textureRegions[currentTextureIndex]);
+
+        rectangle = new Rectangle(posX, posY, width * 4, height * 4);
     }
 
     public void setDirection(Direction direction) {
         previousDirection = currentDirection;
         currentDirection = direction;
         currentTextureIndex = direction.ordinal();
+    }
+
+    public Direction getPreviousDirection() {
+        return previousDirection;
     }
 
     @Override
@@ -43,6 +51,13 @@ public class VacuumCleanerRenderEntity extends RenderEntity {
     @Override
     public void render(Graphics graphics) {
         super.render(graphics);
+
+        graphics.setColor(Color.GREEN);
+        graphics.drawRect(
+                getPosX() - (rectangle.width / 2) + getWidth() / 2,
+                getPosY() - (rectangle.height / 2) + getHeight() / 2,
+                rectangle.width, rectangle.height
+        );
     }
 
 }
