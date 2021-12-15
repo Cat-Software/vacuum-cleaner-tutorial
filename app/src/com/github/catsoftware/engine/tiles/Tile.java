@@ -9,13 +9,13 @@ public abstract class Tile {
     private final int id;
     private final TextureRegion textureRegion;
 
-    private int posX;
-    private int posY;
-    private int width;
-    private int height;
+    protected int posX;
+    protected int posY;
+    protected int width;
+    protected int height;
 
-    private int offsetX;
-    private int offsetY;
+    protected int offsetX;
+    protected int offsetY;
 
     public Tile(int id, TextureRegion textureRegion, int posX, int posY, int width, int height) {
         this.id = id;
