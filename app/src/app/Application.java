@@ -97,62 +97,62 @@ public class Application extends RenderApplication {
             e.printStackTrace();
         }
 
-        List<String> list = new ArrayList<>();
+        List<String> objectsList = new ArrayList<>();
 
-        list.add(WallFooterTile.class.getName());
-        list.add(WallUpperTile.class.getName());
-        list.add(FloorTile.class.getName());
+        objectsList.add(WallFooterTile.class.getName());
+        objectsList.add(WallUpperTile.class.getName());
+        objectsList.add(FloorTile.class.getName());
 
         // Tapete
-        list.add(CarpetLeftUpperCorner.class.getName());
-        list.add(CarpetCenterUpperCorner.class.getName());
-        list.add(CarpetRightUpperCorner.class.getName());
-        list.add(CarpetLeftDownCorner.class.getName());
-        list.add(CarpetCenterDownCorner.class.getName());
-        list.add(CarpetRightDownCorner.class.getName());
+        objectsList.add(CarpetLeftUpperCorner.class.getName());
+        objectsList.add(CarpetCenterUpperCorner.class.getName());
+        objectsList.add(CarpetRightUpperCorner.class.getName());
+        objectsList.add(CarpetLeftDownCorner.class.getName());
+        objectsList.add(CarpetCenterDownCorner.class.getName());
+        objectsList.add(CarpetRightDownCorner.class.getName());
 
         // Mesa
-        list.add(TableLeftUpperCorner.class.getName());
-        list.add(TableRightUpperCorner.class.getName());
-        list.add(TableLeftDownCorner.class.getName());
-        list.add(TableRightDownCorner.class.getName());
+        objectsList.add(TableLeftUpperCorner.class.getName());
+        objectsList.add(TableRightUpperCorner.class.getName());
+        objectsList.add(TableLeftDownCorner.class.getName());
+        objectsList.add(TableRightDownCorner.class.getName());
 
         // Estante
-        list.add(ShelfUpper.class.getName());
-        list.add(ShelfDown.class.getName());
+        objectsList.add(ShelfUpper.class.getName());
+        objectsList.add(ShelfDown.class.getName());
 
         // Mini mesa
-        list.add(MiniTable.class.getName());
+        objectsList.add(MiniTable.class.getName());
 
         // Televisao
-        list.add(Television.class.getName());
+        objectsList.add(Television.class.getName());
 
         // Cadeiras
         // cadeira esquerda
-        list.add(ChairUpperLeft.class.getName());
-        list.add(ChairDownLeft.class.getName());
+        objectsList.add(ChairUpperLeft.class.getName());
+        objectsList.add(ChairDownLeft.class.getName());
 
         // cadeira direita
-        list.add(ChairUpperRight.class.getName());
-        list.add(ChairDownRight.class.getName());
+        objectsList.add(ChairUpperRight.class.getName());
+        objectsList.add(ChairDownRight.class.getName());
 
         // cadeira de tras
-        list.add(ChairUpperBack.class.getName());
-        list.add(ChairDownBack.class.getName());
+        objectsList.add(ChairUpperBack.class.getName());
+        objectsList.add(ChairDownBack.class.getName());
 
         // cadeira da frente
-        list.add(ChairUpperFront.class.getName());
-        list.add(ChairDownFront.class.getName());
+        objectsList.add(ChairUpperFront.class.getName());
+        objectsList.add(ChairDownFront.class.getName());
 
         // Iluminaria
-        list.add(LampUpper.class.getName());
-        list.add(LampDown.class.getName());
+        objectsList.add(LampUpper.class.getName());
+        objectsList.add(LampDown.class.getName());
 
         // Planta
-        list.add(PlantUpper.class.getName());
-        list.add(PlantDown.class.getName());
+        objectsList.add(PlantUpper.class.getName());
+        objectsList.add(PlantDown.class.getName());
 
-        tileMap.load(list);
+        tileMap.load(objectsList);
 
         // Finish load map sutffs
         addNotify();
