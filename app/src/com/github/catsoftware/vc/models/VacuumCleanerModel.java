@@ -7,6 +7,7 @@ import java.util.List;
 public class VacuumCleanerModel {
     private int id;
     private Direction direction;
+    private Direction collisionDirection;
     private float velocity;
     private boolean hasCollision;
     private int collisionCount;
@@ -34,6 +35,14 @@ public class VacuumCleanerModel {
 
     public Direction getDirection() {
         return direction;
+    }
+
+    public Direction getCollisionDirection() {
+        return collisionDirection;
+    }
+
+    public void setCollisionDirection(Direction collisionDirection) {
+        this.collisionDirection = collisionDirection;
     }
 
     public void setDirection(Direction direction) {
