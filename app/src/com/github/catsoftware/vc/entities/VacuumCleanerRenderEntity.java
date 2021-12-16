@@ -45,6 +45,14 @@ public class VacuumCleanerRenderEntity extends RenderEntity {
         return previousDirection;
     }
 
+    public BoxCollision getBoxCollision() {
+        return boxCollision;
+    }
+
+    public BoxCollision getTrashDetectorCollision() {
+        return trashDetectorCollision;
+    }
+
     @Override
     public void update() {
         if(currentDirection != previousDirection)

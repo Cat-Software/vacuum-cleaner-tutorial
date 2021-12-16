@@ -6,6 +6,7 @@ import com.github.catsoftware.engine.tiles.tiled.Map;
 
 import java.awt.*;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TileMap {
@@ -19,6 +20,8 @@ public abstract class TileMap {
 
     protected Tile[][] tiles;
     private List<Layer> layers;
+
+    private List<CollidableTile> collidables = new ArrayList<>();
 
     public TileMap(Map map, int tileSize) {
         this.tileSize = tileSize;
@@ -51,6 +54,10 @@ public abstract class TileMap {
                                     ((Tile) tile).setOffsetX(offsetX);
                                     ((Tile) tile).setOffsetY(offsetY);
                                     tiles[layerIndex][x + y * width] = (Tile) tile;
+
+                                    if(tile instanceof CollidableTile) {
+                                        collidables.add((CollidableTile) tile);
+                                    }
                                     break;
                                 }
                             }
@@ -92,5 +99,9 @@ public abstract class TileMap {
                 }
             }
         }
+    }
+
+    public List<CollidableTile> getCollidables() {
+        return collidables;
     }
 }

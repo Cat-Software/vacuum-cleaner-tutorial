@@ -7,7 +7,7 @@ import java.awt.*;
 
 public abstract class CollidableTile extends Tile {
 
-    private BoxCollision boxCollision;
+    protected BoxCollision boxCollision;
 
     public CollidableTile(int id, TextureRegion textureRegion, int posX, int posY, int width, int height) {
         super(id, textureRegion, posX, posY, width, height);

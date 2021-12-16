@@ -53,12 +53,16 @@ import java.util.List;
 
 public class Application extends RenderApplication {
 
+    private CheckCollisionCommand checkCollisionCommand;
+
     private MoveLeftCommand moveLeftCommand;
     private MoveRightCommand moveRightCommand;
     private MoveUpperCommand moveUpperCommand;
     private MoveDownCommand moveDownCommand;
 
     private TrashRenderEntity trashRenderEntity;
+
+    private VacuumCleanerModel vacuumCleanerModel;
     private VacuumCleanerRenderEntity vacuumCleanerRenderEntity;
 
     private final VacuumCleanerCommandPool vacuumCleanerCommandPool = new VacuumCleanerCommandPool();
@@ -73,12 +77,11 @@ public class Application extends RenderApplication {
     public Application(KeyboardInputListener keyboardInputListener) {
         super(keyboardInputListener);
     }
-
     @Override
     public synchronized void initializeResources() {
         trashRenderEntity = new TrashRenderEntity(3 * 16, 3 * 16, 8, 8);
 
-        VacuumCleanerModel vacuumCleanerModel = new VacuumCleanerModel(1, Direction.RIGHT, 200.00f);
+        vacuumCleanerModel = new VacuumCleanerModel(1, Direction.RIGHT, 200.00f);
         vacuumCleanerRenderEntity = VacuumCleanerFactory.factoryEntityBy(vacuumCleanerModel);
 
         moveLeftCommand = new MoveLeftCommand(vacuumCleanerModel, vacuumCleanerRenderEntity);
@@ -164,6 +167,10 @@ public class Application extends RenderApplication {
 
         tileMap.load(objectsList);
 
+        System.out.println("Quantidade de objetos colidiveis: " + tileMap.getCollidables().size());
+
+        checkCollisionCommand = new CheckCollisionCommand(vacuumCleanerModel, vacuumCleanerRenderEntity, tileMap.getCollidables());
+
         // Finish load map sutffs
         addNotify();
     }
@@ -195,8 +202,9 @@ public class Application extends RenderApplication {
 
     @Override
     public void update(double deltaTime) {
-//        vacuumCleanerCommandPool.applyCommands(deltaTime);
         vacuumCleanerRenderEntity.update();
+        checkCollisionCommand.execute(deltaTime);
+//        vacuumCleanerCommandPool.applyCommands(deltaTime);
     }
 
     @Override
