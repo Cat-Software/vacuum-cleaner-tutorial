@@ -20,8 +20,6 @@ public class CheckCollisionCommand extends VacuumCleanerCommand {
 
     @Override
     public void execute(double deltaTime) {
-        vacuumCleanerModel.setCollision(false);
-
         for(CollidableTile collidableTile : collidableTiles) {
             if(
                 vacuumCleanerRenderEntity

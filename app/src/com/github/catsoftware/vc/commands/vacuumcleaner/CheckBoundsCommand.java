@@ -28,14 +28,21 @@ public final class CheckBoundsCommand extends VacuumCleanerCommand {
 
     @Override
     public void execute(double deltaTime) {
-        vacuumCleanerModel.setCollision(false);
-        if (vacuumCleanerRenderEntity.getPosX() < xMin && vacuumCleanerModel.getDirection() == Direction.LEFT)
+        if (vacuumCleanerRenderEntity.getPosX() <= xMin && vacuumCleanerModel.getDirection() == Direction.LEFT) {
             vacuumCleanerModel.setCollision(true);
-        else if (vacuumCleanerRenderEntity.getPosX() + vacuumCleanerRenderEntity.getWidth() >= xBound && vacuumCleanerModel.getDirection() == Direction.RIGHT)
+            vacuumCleanerModel.setCollisionDirection(Direction.LEFT);
+        }
+        else if (vacuumCleanerRenderEntity.getPosX() + vacuumCleanerRenderEntity.getWidth() >= xBound && vacuumCleanerModel.getDirection() == Direction.RIGHT) {
             vacuumCleanerModel.setCollision(true);
-        else if (vacuumCleanerRenderEntity.getPosY() < yMin && vacuumCleanerModel.getDirection() == Direction.UPPER)
+            vacuumCleanerModel.setCollisionDirection(Direction.RIGHT);
+        }
+        else if (vacuumCleanerRenderEntity.getPosY() < yMin && vacuumCleanerModel.getDirection() == Direction.UPPER) {
             vacuumCleanerModel.setCollision(true);
-        else if (vacuumCleanerRenderEntity.getPosY() + vacuumCleanerRenderEntity.getHeight() >= yBound && vacuumCleanerModel.getDirection() == Direction.DOWN)
+            vacuumCleanerModel.setCollisionDirection(Direction.UPPER);
+        }
+        else if (vacuumCleanerRenderEntity.getPosY() + vacuumCleanerRenderEntity.getHeight() >= yBound && vacuumCleanerModel.getDirection() == Direction.DOWN) {
             vacuumCleanerModel.setCollision(true);
+            vacuumCleanerModel.setCollisionDirection(Direction.DOWN);
+        }
     }
 }

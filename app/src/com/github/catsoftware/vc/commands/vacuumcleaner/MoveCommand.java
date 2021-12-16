@@ -5,38 +5,37 @@ import com.github.catsoftware.vc.models.VacuumCleanerModel;
 
 public final class MoveCommand extends VacuumCleanerCommand {
 
+    private final MoveLeftCommand moveLeftCommand;
+    private final MoveRightCommand moveRightCommand;
+    private final MoveUpperCommand moveUpperCommand;
+    private final MoveDownCommand moveDownCommand;
+
     public MoveCommand(
             VacuumCleanerModel vacuumCleanerModel,
             VacuumCleanerRenderEntity vacuumCleanerRenderEntity
     ) {
         super(vacuumCleanerModel, vacuumCleanerRenderEntity);
+
+        this.moveLeftCommand = new MoveLeftCommand(vacuumCleanerModel, vacuumCleanerRenderEntity);
+        this.moveRightCommand = new MoveRightCommand(vacuumCleanerModel, vacuumCleanerRenderEntity);
+        this.moveDownCommand = new MoveDownCommand(vacuumCleanerModel, vacuumCleanerRenderEntity);
+        this.moveUpperCommand = new MoveUpperCommand(vacuumCleanerModel, vacuumCleanerRenderEntity);
     }
 
     @Override
     public void execute(double deltaTime) {
-        if (vacuumCleanerModel.hasCollision()) return;
-        vacuumCleanerRenderEntity.setDirection(vacuumCleanerModel.getDirection());
-
         switch (vacuumCleanerModel.getDirection()) {
             case LEFT:
-                vacuumCleanerRenderEntity.setPosX(
-                        (int) (vacuumCleanerRenderEntity.getPosX() + ((vacuumCleanerModel.getVelocity() * -1) * deltaTime))
-                );
+                moveLeftCommand.execute(deltaTime);
                 break;
             case RIGHT:
-                vacuumCleanerRenderEntity.setPosX(
-                        (int) (vacuumCleanerRenderEntity.getPosX() + (vacuumCleanerModel.getVelocity()) * deltaTime)
-                );
+                moveRightCommand.execute(deltaTime);
                 break;
             case UPPER:
-                vacuumCleanerRenderEntity.setPosY(
-                        (int) (vacuumCleanerRenderEntity.getPosY() + ((vacuumCleanerModel.getVelocity() * -1) * deltaTime))
-                );
+                moveUpperCommand.execute(deltaTime);
                 break;
             case DOWN:
-                vacuumCleanerRenderEntity.setPosY(
-                        (int) (vacuumCleanerRenderEntity.getPosY() + (vacuumCleanerModel.getVelocity()) * deltaTime)
-                );
+                moveDownCommand.execute(deltaTime);
                 break;
         }
     }

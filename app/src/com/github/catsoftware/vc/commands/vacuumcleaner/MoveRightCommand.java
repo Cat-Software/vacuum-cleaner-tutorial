@@ -21,5 +21,6 @@ public final class MoveRightCommand extends VacuumCleanerCommand {
         vacuumCleanerRenderEntity.setPosX(
                 (int) (vacuumCleanerRenderEntity.getPosX() + (vacuumCleanerModel.getVelocity()) * deltaTime)
         );
+        vacuumCleanerModel.setCollision(false);
     }
 }

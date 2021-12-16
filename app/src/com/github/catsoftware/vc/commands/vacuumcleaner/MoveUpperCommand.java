@@ -21,5 +21,6 @@ public final class MoveUpperCommand extends VacuumCleanerCommand {
         vacuumCleanerRenderEntity.setPosY(
                 (int) (vacuumCleanerRenderEntity.getPosY() + (((vacuumCleanerModel.getVelocity() - 60) * -1) * deltaTime))
         );
+        vacuumCleanerModel.setCollision(false);
     }
 }

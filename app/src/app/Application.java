@@ -167,9 +167,9 @@ public class Application extends RenderApplication {
 
         tileMap.load(objectsList);
 
-        System.out.println("Quantidade de objetos colidiveis: " + tileMap.getCollidables().size());
-
-        checkCollisionCommand = new CheckCollisionCommand(vacuumCleanerModel, vacuumCleanerRenderEntity, tileMap.getCollidables());
+        vacuumCleanerCommandPool.addCommand(
+                new CheckCollisionCommand(vacuumCleanerModel, vacuumCleanerRenderEntity, tileMap.getCollidables())
+        );
 
         // Finish load map sutffs
         addNotify();
@@ -203,8 +203,7 @@ public class Application extends RenderApplication {
     @Override
     public void update(double deltaTime) {
         vacuumCleanerRenderEntity.update();
-        checkCollisionCommand.execute(deltaTime);
-//        vacuumCleanerCommandPool.applyCommands(deltaTime);
+        vacuumCleanerCommandPool.applyCommands(deltaTime);
     }
 
     @Override

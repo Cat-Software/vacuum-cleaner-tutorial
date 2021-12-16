@@ -21,5 +21,6 @@ public final class MoveDownCommand extends VacuumCleanerCommand {
         vacuumCleanerRenderEntity.setPosY(
                 (int) (vacuumCleanerRenderEntity.getPosY() + (vacuumCleanerModel.getVelocity()) * deltaTime)
         );
+        vacuumCleanerModel.setCollision(false);
     }
 }

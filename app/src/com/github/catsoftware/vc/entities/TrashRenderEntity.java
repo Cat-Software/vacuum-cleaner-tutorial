@@ -15,10 +15,8 @@ public class TrashRenderEntity extends RenderEntity {
         super(posX, posY, width, height);
 
         setTextureRegion(new TextureRegion(149, 117, 8, 8, Loader.DEFAULT_TEXTURE));
-        boxCollision = new BoxCollision(posX, posY, width, height);
+        boxCollision = new BoxCollision(posX - 1, posY -1, width, height);
     }
-
-
 
     @Override
     public void update() {

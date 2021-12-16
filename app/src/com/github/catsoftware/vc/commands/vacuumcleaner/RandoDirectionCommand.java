@@ -18,13 +18,8 @@ public class RandoDirectionCommand extends VacuumCleanerCommand {
     @Override
     public void execute(double deltaTime) {
         // Muda a direcao em aproximadamente 1 segundos...
-        if (time > 1.5f) {
-
+        if (time > 1.0f) {
             int randomDirection = random.nextInt(4);
-
-            while (randomDirection == vacuumCleanerModel.getDirection().ordinal() || randomDirection == vacuumCleanerRenderEntity.getPreviousDirection().ordinal()) {
-                randomDirection = random.nextInt(4);
-            }
 
             switch (randomDirection) {
                 case 0:
